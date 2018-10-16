@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
 
 
 type Props = {};
@@ -15,8 +15,11 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to E-Loggbok</Text>
-        <Text style={styles.instructions}>By: Sogeti GBG/Borås</Text>
+        <Text style={styles.welcome}>Welcome to E-Logg</Text>
+        <Text style={styles.welcome}>By: Sogeti GBG/Borås</Text>
+        <View style={{backgroundColor: "#636f7a", marginTop:40}}>
+          <Button onPress={undefined} title="Leaving Port" color="white"/>
+        </View>
       </View>
     );
   }
@@ -25,18 +28,14 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 200,
+    //justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    //backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
