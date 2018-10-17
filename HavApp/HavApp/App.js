@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
@@ -18,7 +11,7 @@ export default class App extends Component<Props> {
         <Text style={styles.welcome}>Welcome to E-Logg</Text>
         <Text style={styles.welcome}>By: Sogeti GBG/Borås</Text>
         <View style={{backgroundColor: "#636f7a", marginTop:40}}>
-          <Button onPress={undefined} title="Leaving Port" color="white"/>
+          <Button onPress={()=>{null}} title="Leaving Port" color="white"/>
         </View>
       </View>
     );
@@ -28,10 +21,10 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 200,
-    //justifyContent: 'center',
+    //marginTop: 200,
+    justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
