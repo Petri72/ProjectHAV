@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Alert} from 'react-native';
 import {StackNavigator} from 'react-navigation';
 
 class LogInScreen extends React.Component{
@@ -24,8 +24,14 @@ class LogInScreen extends React.Component{
               secureTextEntry/>
 
         <TouchableOpacity style={styles.buttonContainer}
-                     onPress={()=>{null}}>
+                    disabled={false}
+                    onPress={()=>{null}}>
              <Text  style={styles.buttonText}>LOGIN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonContainer}
+                    disabled={true}
+                    onPress={()=>{null}}>
+             <Text  style={styles.buttonText}>LOGOUT</Text>
         </TouchableOpacity>
         <View style={{marginTop:250}}>
           <Button title="Go to details" onPress={()=>this.props.navigation.navigate('Details')}/>
@@ -36,15 +42,20 @@ class LogInScreen extends React.Component{
 }
 
 class DetailsScreen extends React.Component{
+  onP(){
+    Alert.alert('The ship has left the port')
+  }
   render(){
     return(
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to E-Logg</Text>
         <Text style={styles.welcome}>By: Sogeti GBG/Borås</Text>
         <View style={{backgroundColor: "#636f7a", marginTop:40}}>
-          <Button onPress={()=>{null}} title="Leaving Port" color="white"/>
+          <Button onPress={this.onP} title="Leaving Port" color="white"/>
         </View>
-        <Button title="Go to Login screen" onPress={()=>this.props.navigation.navigate('LogIn')}/>
+        <View style={{marginTop:250}}>
+          <Button title="Go to Login screen" onPress={()=>this.props.navigation.navigate('LogIn')}/>
+        </View>
       </View>
     );
   }
@@ -84,6 +95,7 @@ export default class App extends Component<Props> {
   }
 }*/
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -109,6 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#2980b6',
         paddingVertical: 15,
         width: 150,
+        marginTop: 10,
     },
     buttonText:{
         color: '#fff',
