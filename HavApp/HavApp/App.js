@@ -1,9 +1,25 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Alert} from 'react-native';
-import {StackNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
+import firebase from 'firebase';
+
+var config = {
+    databaseURL: "https://project-hav-dc44f.firebaseio.com",
+    projectId: "project-hav-dc44f",
+};
+firebase.initializeApp(config);
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 class LogInScreen extends React.Component{
+  readUserData() {
+    firebase.database().ref('user/').once('value', function (snapshot) {
+        console.log(snapshot.val())
+    });
+}
   render(){
     return(
       <View style={styles.container}>
@@ -14,18 +30,18 @@ class LogInScreen extends React.Component{
                keyboardType='default'
                returnKeyType="next"
                placeholder='Username'
-               placeholderTextColor='rgba(225,225,225,0.7)'/>
+               placeholderTextColor='rgba(225,225,225,0.9)'/>
 
         <TextInput style = {styles.input}
               returnKeyType="go"
               ref={(input)=> this.passwordInput = input}
               placeholder='Password'
-              placeholderTextColor='rgba(225,225,225,0.7)'
+              placeholderTextColor='rgba(225,225,225,0.9)'
               secureTextEntry/>
 
         <TouchableOpacity style={styles.buttonContainer}
                     disabled={false}
-                    onPress={()=>{null}}>
+                    onPress={this.readUserData}>
              <Text  style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonContainer}
@@ -33,8 +49,8 @@ class LogInScreen extends React.Component{
                     onPress={()=>{null}}>
              <Text  style={styles.buttonText}>LOGOUT</Text>
         </TouchableOpacity>
-        <View style={{marginTop:250}}>
-          <Button title="Go to details" onPress={()=>this.props.navigation.navigate('Details')}/>
+        <View style={{marginTop:250, backgroundColor:"#737b84"}}>
+          <Button title="Go to details" color="#fff" onPress={()=>this.props.navigation.navigate('Details')}/>
         </View>
       </View>
     );
@@ -50,18 +66,18 @@ class DetailsScreen extends React.Component{
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to E-Logg</Text>
         <Text style={styles.welcome}>By: Sogeti GBG/Borås</Text>
-        <View style={{backgroundColor: "#636f7a", marginTop:40}}>
+        <View style={{backgroundColor: "#2b9064", marginTop:40}}>
           <Button onPress={this.onP} title="Leaving Port" color="white"/>
         </View>
-        <View style={{marginTop:250}}>
-          <Button title="Go to Login screen" onPress={()=>this.props.navigation.navigate('LogIn')}/>
+        <View style={{marginTop:250, backgroundColor:"#737b84"}}>
+          <Button title="Go to Login screen" color="#fff" onPress={()=>this.props.navigation.navigate('LogIn')}/>
         </View>
       </View>
     );
   }
 }
 
-const RootStack = StackNavigator(
+const RootStack = createStackNavigator(
   {
     LogIn: {
       screen: LogInScreen,
@@ -80,21 +96,6 @@ export default class App extends React.Component{
     return <RootStack />
   }
 }
-/*type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to E-Logg</Text>
-        <Text style={styles.welcome}>By: Sogeti GBG/Borås</Text>
-        <View style={{backgroundColor: "#636f7a", marginTop:40}}>
-          <Button onPress={()=>{null}} title="Leaving Port" color="white"/>
-        </View>
-      </View>
-    );
-  }
-}*/
-
 
 const styles = StyleSheet.create({
   container: {
@@ -112,13 +113,13 @@ const styles = StyleSheet.create({
   input:{
         height: 40,
         width: 200,
-        backgroundColor: 'rgba(225,225,225,0.2)',
+        backgroundColor: 'rgba(225,225,225,0.3)',
         marginBottom: 10,
         padding: 10,
         color: 'black'
     },
     buttonContainer:{
-        backgroundColor: '#2980b6',
+        backgroundColor: '#2b9064',
         paddingVertical: 15,
         width: 150,
         marginTop: 10,
